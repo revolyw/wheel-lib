@@ -1,5 +1,3 @@
-package com.linkmed.jobmd.service.weixin;
-
 /**
  * 字符串工具类
  * Created by Willow on 16/11/3.
