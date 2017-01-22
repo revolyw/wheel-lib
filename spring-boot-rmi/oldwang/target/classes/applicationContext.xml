@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+    <!-- 扫描注解所在的包，注意不要包含java config的路径 -->
+    <context:component-scan base-package="cn.willowspace.oldwang.service"/>
+    <context:component-scan base-package="cn.willowspace.oldwang.rmi"/>
+
+    <!--这个id是给客户端用的，必须有 -->
+    <bean id="remoteGreenQiangService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://localhost:1199/GreenQiangSWifeService"/>
+        <property name="serviceInterface" value="cn.willowspace.oldwang.rmi.GreenQiangSWifeService"/>
+    </bean>
+</beans>

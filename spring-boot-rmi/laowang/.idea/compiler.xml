@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="greenqiang" />
+        <module name="laowang" />
+        <module name="oldwang" />
+        <module name="xiaoming" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="greenqiang" target="1.8" />
+      <module name="laowang" target="1.8" />
+      <module name="oldwang" target="1.8" />
+      <module name="xiaoming" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
