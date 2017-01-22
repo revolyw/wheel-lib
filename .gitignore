@@ -1,3 +1,6 @@
+# spring-boot-rmi
+spring-boot-rmi/.*
+
 .gitignore
 .DS_Store
 
@@ -17,10 +20,6 @@ bin-release/
 *.air
 *.ipa
 *.apk
-
-#spring-boot-rmi
-spring-boot-rmi/.idea
-spring-boot-rmi/.* 
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
