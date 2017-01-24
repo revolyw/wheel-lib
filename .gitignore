@@ -1,5 +1,10 @@
 # spring-boot-rmi
 spring-boot-rmi/.*
+spring-boot-rmi/target
+spring-boot-rmi/build
+spring-boot-rmi/*/.*
+spring-boot-rmi/*/target
+spring-boot-rmi/*/build
 
 .gitignore
 .DS_Store
