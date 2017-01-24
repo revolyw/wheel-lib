@@ -6,17 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="greenqiang" />
         <module name="laowang" />
-        <module name="oldwang" />
-        <module name="xiaoming" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="greenqiang" target="1.8" />
-      <module name="laowang" target="1.8" />
-      <module name="oldwang" target="1.8" />
-      <module name="xiaoming" target="1.8" />
+      <module name="laowang" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

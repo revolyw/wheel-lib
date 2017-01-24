@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../greenqiang/greenqiang.iml" filepath="$PROJECT_DIR$/../greenqiang/greenqiang.iml" />
       <module fileurl="file://$PROJECT_DIR$/laowang.iml" filepath="$PROJECT_DIR$/laowang.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../oldwang/oldwang.iml" filepath="$PROJECT_DIR$/../oldwang/oldwang.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../xiaoming/xiaoming.iml" filepath="$PROJECT_DIR$/../xiaoming/xiaoming.iml" />
     </modules>
   </component>
 </project>
