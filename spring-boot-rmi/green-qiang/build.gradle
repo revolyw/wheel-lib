@@ -1,0 +1,10 @@
+sourceSets {
+    main {
+        java {
+            srcDir 'green-qiang/src/main/java'
+        }
+        resources {
+            srcDir 'green-qiang/src/main/resources'
+        }
+    }
+}

@@ -1,0 +1,10 @@
+sourceSets {
+    main {
+        java {
+            srcDir 'old-wang/src/main/java'
+        }
+        resources {
+            srcDir 'old-wang/src/main/resources'
+        }
+    }
+}
