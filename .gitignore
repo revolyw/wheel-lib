@@ -9,6 +9,9 @@ spring-boot-rmi/*/build
 .gitignore
 .DS_Store
 
+# js_util/webpack-demo
+js_util/webpack-demo/node_modules
+
 
 # Build and Release Folders
 bin/
