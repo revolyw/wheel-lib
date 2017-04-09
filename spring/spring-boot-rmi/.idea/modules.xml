@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/green-qiang/green-qiang.iml" filepath="$PROJECT_DIR$/.idea/modules/green-qiang/green-qiang.iml" group="green-qiang" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/green-qiang/green-qiang_main.iml" filepath="$PROJECT_DIR$/.idea/modules/green-qiang/green-qiang_main.iml" group="green-qiang" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/green-qiang/green-qiang_test.iml" filepath="$PROJECT_DIR$/.idea/modules/green-qiang/green-qiang_test.iml" group="green-qiang" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/old-wang/old-wang.iml" filepath="$PROJECT_DIR$/.idea/modules/old-wang/old-wang.iml" group="old-wang" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/old-wang/old-wang_main.iml" filepath="$PROJECT_DIR$/.idea/modules/old-wang/old-wang_main.iml" group="old-wang" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/old-wang/old-wang_test.iml" filepath="$PROJECT_DIR$/.idea/modules/old-wang/old-wang_test.iml" group="old-wang" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-boot-rmi.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-boot-rmi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-boot-rmi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-boot-rmi_main.iml" group="spring-boot-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-boot-rmi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-boot-rmi_test.iml" group="spring-boot-rmi" />
+    </modules>
+  </component>
+</project>
