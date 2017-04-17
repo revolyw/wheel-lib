@@ -1,5 +1,7 @@
 .idea
 /.idea/*
+out
+/out/*
 java/cas-demo/cas-client-1/.idea/workspace.xml
 # spring-boot-rmi
 spring-boot-rmi/.*
