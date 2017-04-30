@@ -1,5 +1,5 @@
 .idea
-/spring/spring-boot-rmi/.idea/*
+spring/spring-boot-rmi/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_4_0.xml
 /.idea/*
 out
 /out/*
