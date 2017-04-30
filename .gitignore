@@ -1,23 +1,20 @@
 .idea
-spring/spring-boot-rmi/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_4_0.xml
 /.idea/*
 out
 /out/*
-java/cas-demo/cas-client-1/.idea/workspace.xml
-# spring-boot-rmi
-spring-boot-rmi/.*
-spring-boot-rmi/target
-spring-boot-rmi/build
-spring-boot-rmi/*/.*
-spring-boot-rmi/*/target
-spring-boot-rmi/*/build
-
 .gitignore
 .DS_Store
+
+# spring/spring-boot-rmi
+spring/spring-boot-rmi/.idea/
+spring/spring-boot-rmi/build/
+spring/spring-boot-rmi/.gradle/
 
 # js_util/webpack-demo
 js_util/webpack-demo/node_modules
 
+# java/cas-demo
+java/cas-demo/cas-client-1/.idea/
 
 # Build and Release Folders
 bin/
