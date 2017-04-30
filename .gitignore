@@ -1,4 +1,5 @@
 .idea
+/spring/spring-boot-rmi/.idea/*
 /.idea/*
 out
 /out/*
