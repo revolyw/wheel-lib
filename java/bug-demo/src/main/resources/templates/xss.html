@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+<label>输入</label>
+<textarea id="param"></textarea>
+<button id="btn">点击回显</button>
+<p>alert(document.cookie);</p>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#btn").on("click", function () {
+            $("body").append($("#param").val());
+        });
+    })
+</script>
+</html>
