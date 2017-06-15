@@ -7,7 +7,6 @@ import re
 import os
 import tempfile
 
-
 class Properties:
 
     def __init__(self, file_name):
@@ -76,12 +75,8 @@ def replace_property(file_name, from_regex, to_str, append_on_not_exists=True):
 
 web_header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
 
-def processDouban(page_url):
-    list_url = page_url
-
-
 if __name__ == '__main__':
-    file_path = '/Users/Willow/github/apk-spider/properties/page_index.properties'
+    file_path = '../properties/page_index.properties'
     props = parse(file_path)   #读取文件
     if props.has_key('page_index') == False:
         print('read page_index error')
@@ -114,15 +109,15 @@ if __name__ == '__main__':
                     page_index += 1
                     continue
                 time.sleep(1)
-                print(time.strftime("%H:%M:%S     ") + '处理apk文件: ' + tag_download_a['href'])
-                req = urllib.request.Request(tag_download_a['href'], headers=webheader)
+                print(time.strftime("%H:%M:%S ") + '下载apk文件: ' + tag_download_a['href'])
+                req = urllib.request.Request(tag_download_a['href'], headers=web_header)
                 webPage = urllib.request.urlopen(req,timeout=2)
                 data = webPage.read()
-                file = open('/Users/Willow/github/apk-spider/apks/' + tag_app_name_span.get_text() + '.apk', "wb")
+                file = open('../apks/' + tag_app_name_span.get_text() + '.apk', "wb")
                 file.write(data)
                 page_index += 1
             except:
-                print('打开apk文件失败')
+                print('下载apk文件失败')
                 file.flush()
                 file.close()
                 page_index += 1
