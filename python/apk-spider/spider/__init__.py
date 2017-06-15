@@ -90,7 +90,7 @@ if __name__ == '__main__':
 
     #  os.mkdir('doubanimages')
     print('spider starting work from ' + str(page_index))
-    while page_index < 31622374:
+    while page_index < 101622374:
         # 百度手机助手
         # http://shouji.baidu.com/software/11537454.html
         pageUrl = 'http://shouji.baidu.com/software/' + str(page_index) + '.html'
@@ -109,15 +109,17 @@ if __name__ == '__main__':
                     page_index += 1
                     continue
                 time.sleep(1)
-                print(time.strftime("%H:%M:%S ") + '下载apk文件: ' + tag_download_a['href'])
+                print(time.strftime("%H:%M:%S ") + 'downloading: ' + tag_download_a['href'])
                 req = urllib.request.Request(tag_download_a['href'], headers=web_header)
                 webPage = urllib.request.urlopen(req,timeout=2)
                 data = webPage.read()
-                file = open('../apks/' + tag_app_name_span.get_text() + '.apk', "wb")
+                file = open('../apks/' + str(page_index) + '.apk', "wb")
                 file.write(data)
+                info = open('../apks/info_'+ str(page_index),"wb")
+                info.write(tag_app_name_span)
                 page_index += 1
             except:
-                print('下载apk文件失败')
+                print('download apk file error')
                 file.flush()
                 file.close()
                 page_index += 1
