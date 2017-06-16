@@ -113,23 +113,23 @@ if __name__ == '__main__':
                 req = urllib.request.Request(tag_download_a['href'], headers=web_header)
                 webPage = urllib.request.urlopen(req,timeout=2)
                 data = webPage.read()
-                file = open('../temp/' + str(page_index) + '.apk', "wb")
+                file = open('../apks/' + tag_app_name_span.get_text() + '.apk', "wb")
                 file.write(data)
-                info = open('../temp/info_'+str(page_index) ,"wb")
-                info.write(bytes(tag_app_name_span.get_text(),"utf-8"))
+                # info = open('../temp/info_'+str(page_index) ,"wb")
+                # info.write(bytes(tag_app_name_span.get_text(),"utf-8"))
                 page_index += 1
             except:
                 print('download apk file error')
                 file.flush()
                 file.close()
-                info.flush()
-                info.close()
+                # info.flush()
+                # info.close()
                 page_index += 1
             else:
                 file.flush()
                 file.close()
-                info.flush()
-                info.close()
+                # info.flush()
+                # info.close()
                 page_index += 1
         except:
             page_index += 1
