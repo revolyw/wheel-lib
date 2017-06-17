@@ -137,11 +137,11 @@ if __name__ == '__main__':
             app_download_num = tag_span_app_download_num.get_text()
 
             # app_all_info
-            app_all_info = 'index:' + str(page_index) + '\n app_name:'+ app_name + '\n app_type:' + app_type + '\n app_score:' + app_score + '\n app_download_num:' + app_download_num + '\n app_features:' + app_features + '\n app_introduction:' + app_introduction
+            app_all_info = 'index:' + str(page_index) + '\n app_name:'+ app_name + '\n app_type:' + app_type + '\n app_score:' + app_score + '\n app_download_num:' + app_download_num + '\n app_features:' + app_features + '\n app_introduction:' + app_introduction + ', download_url:' + download_url
             # print(app_all_info)
             try:
                 time.sleep(1)
-                print(time.strftime("%H:%M:%S ") + 'downloading: ' + app_name)
+                print(time.strftime("%H:%M:%S ") + 'downloading: ' + str(page_index))
                 req = urllib.request.Request(download_url, headers=web_header)
                 webPage = urllib.request.urlopen(req, timeout=10)
                 data = webPage.read()
