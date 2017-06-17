@@ -78,7 +78,7 @@ web_header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/
 if __name__ == '__main__':
     file_path = '../properties/page_index.properties'
     props = parse(file_path)   #读取文件
-    if props.has_key('page_index') == False:
+    if not props.has_key('page_index'):
         print('read page_index error')
         exit(-1)
     page_index = ''
@@ -99,27 +99,59 @@ if __name__ == '__main__':
             page_file = urllib.request.urlopen(page_req)
             page_data = page_file.read().decode('utf-8')
             page_soup = BeautifulSoup(page_data, 'html.parser')
-            tag_download = page_soup.find('div', {'class': 'area-download'})
-            tag_download_a = tag_download.find('a',{'class': 'apk'})
-            tag_app_name = page_soup.find('h1',{'class': 'app-name'})
-            tag_app_name_span = tag_app_name.find('span');
-            try:
-                if tag_download_a['href'] is '':
-                    print(str(page_index) + 'ignore')
-                    page_index += 1
+            # 下载链接
+            tag_div_download = page_soup.find('div', {'class': 'area-download'})
+            tag_a_download = tag_div_download.find('a',{'class': 'apk'})
+            download_url = tag_a_download['href']
+            if download_url is '':
+                print(str(page_index) + 'ignore')
+                page_index += 1
+                continue
+            # app名称
+            tag_h1_app_name = page_soup.find('h1',{'class': 'app-name'})
+            tag_span_app_name = tag_h1_app_name.find('span')
+            app_name = tag_span_app_name.get_text()
+            # app类型
+            tag_a_list_app_type = page_soup.findAll('a',{'target': '_self'})
+            tag_a_app_type = tag_a_list_app_type[2]
+            app_type = tag_a_app_type.get_text()
+            # app评分
+            tag_span_app_score = page_soup.find('span',{'class': 'star-percent'})
+            tag_span_style_app_score = tag_span_app_score['style']
+            app_score = tag_span_style_app_score[6:-1]
+            # app特色
+            tag_span_app_features = page_soup.findAll('span', {'class': 'app-feature-detail'})
+            tag_span_list_app_features = tag_span_app_features[0].findAll('span', {'class': 'res-tag-ok'})
+            app_features = ''
+            for tag_span_app_feature in tag_span_list_app_features:
+                if tag_span_app_feature.get_text() == '\n' or tag_span_app_feature.get_text() == '':
                     continue
+                app_features += tag_span_app_feature.get_text().replace('\n','') + ','
+            app_features = app_features[0:-1]
+            # app介绍
+            tag_div_app_introduction = page_soup.find('div', {'class': 'introduction'})
+            tag_p_app_introduction = tag_div_app_introduction.find('p', {'class': 'content'})
+            app_introduction = tag_p_app_introduction.get_text()
+            # app下载次数
+            tag_span_app_download_num = page_soup.find('span', {'class': 'download-num'})
+            app_download_num = tag_span_app_download_num.get_text()
+
+            # app_all_info
+            app_all_info = 'index:' + str(page_index) + '\n app_name:'+ app_name + '\n app_type:' + app_type + '\n app_score:' + app_score + '\n app_download_num:' + app_download_num + '\n app_features:' + app_features + '\n app_introduction:' + app_introduction
+            # print(app_all_info)
+            try:
                 time.sleep(1)
-                print(time.strftime("%H:%M:%S ") + 'downloading: ' + tag_download_a['href'])
-                req = urllib.request.Request(tag_download_a['href'], headers=web_header)
-                webPage = urllib.request.urlopen(req,timeout=2)
+                print(time.strftime("%H:%M:%S ") + 'downloading: ' + app_name)
+                req = urllib.request.Request(download_url, headers=web_header)
+                webPage = urllib.request.urlopen(req, timeout=10)
                 data = webPage.read()
-                file = open('../apks/' + tag_app_name_span.get_text() + '.apk', "wb")
+                file = open('../apks/' + str(page_index) + '.apk', "wb")
                 file.write(data)
-                # info = open('../temp/info_'+str(page_index) ,"wb")
-                # info.write(bytes(tag_app_name_span.get_text(),"utf-8"))
+                info = open('../apks/app_info_'+str(page_index), "wb")
+                info.write(bytes(app_all_info,"utf-8"))
                 page_index += 1
             except:
-                print('download apk file error')
+                print('download ' + app_name + ' apk file error')
                 file.flush()
                 file.close()
                 # info.flush()
@@ -130,9 +162,11 @@ if __name__ == '__main__':
                 file.close()
                 # info.flush()
                 # info.close()
-                page_index += 1
+            page_index += 1
         except:
             page_index += 1
             props.put('page_index', str(page_index))
         else:
             page_index += 1
+
+        props.put('page_index', str(page_index))
