@@ -2,7 +2,6 @@
 /.idea/*
 out
 /out/*
-.gitignore
 .DS_Store
 
 # spring/spring-boot-rmi
