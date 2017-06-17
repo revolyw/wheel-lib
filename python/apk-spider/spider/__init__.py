@@ -151,7 +151,7 @@ if __name__ == '__main__':
                 info.write(bytes(app_all_info,"utf-8"))
                 page_index += 1
             except:
-                print('download ' + app_name + ' apk file error')
+                print('download ' + str(page_index) + ' apk file error')
                 file.flush()
                 file.close()
                 # info.flush()
