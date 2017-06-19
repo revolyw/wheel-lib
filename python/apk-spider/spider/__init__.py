@@ -152,21 +152,15 @@ if __name__ == '__main__':
                 page_index += 1
             except:
                 print('download ' + str(page_index) + ' apk file error')
+            finally:
                 file.flush()
                 file.close()
-                # info.flush()
-                # info.close()
+                info.flush()
+                info.close()
                 page_index += 1
-            else:
-                file.flush()
-                file.close()
-                # info.flush()
-                # info.close()
-            page_index += 1
         except:
-            page_index += 1
             props.put('page_index', str(page_index))
-        else:
+        finally:
             page_index += 1
 
         props.put('page_index', str(page_index))
