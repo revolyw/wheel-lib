@@ -1,2 +1,2 @@
-project.name = 'demo-unit-test-on-jenkins-slave'
+rootProject.name = 'demo-unit-test-on-jenkins-slave'
 
