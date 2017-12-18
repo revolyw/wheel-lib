@@ -31,6 +31,15 @@ sourceSets {
     }
 }
 
+//配置测试时打印的日志，事件驱动
+test {
+    testLogging {
+        // Show that tests are run in the command-line output
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
+        exceptionFormat "full"
+    }
+}
+
 dependencies {
     compile group: 'junit', name: 'junit', version: '4.12'
 }
