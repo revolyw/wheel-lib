@@ -16,9 +16,4 @@ public class BeanConfig {
         return threadPoolTaskExecutor;
     }
 
-    @Bean
-    public TaskExecutorExample executorExample(){
-        return new TaskExecutorExample(threadPoolTaskExecutor());
-    }
-
 }

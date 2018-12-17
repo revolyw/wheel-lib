@@ -5,15 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DeadlockApplication {
-    private static TaskExecutorExample executorExample = null;
+    private static SynchronizedDeadLockExample synchronizedDeadLockExample = null;
+    private static ReentrantLockDeadLockExample reentrantLockDeadLockExample = null;
 
-    public DeadlockApplication(TaskExecutorExample executorExample) {
-        DeadlockApplication.executorExample = executorExample;
+    public DeadlockApplication(SynchronizedDeadLockExample synchronizedDeadLockExample,ReentrantLockDeadLockExample reentrantLockDeadLockExample) {
+        DeadlockApplication.synchronizedDeadLockExample = synchronizedDeadLockExample;
+        DeadlockApplication.reentrantLockDeadLockExample = reentrantLockDeadLockExample;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(DeadlockApplication.class, args);
-        DeadlockApplication.executorExample.printMessages();
-        System.out.println("done");
+//        DeadlockApplication.synchronizedDeadLockExample.execute();
+        DeadlockApplication.reentrantLockDeadLockExample.execute();
     }
 }
