@@ -10,13 +10,13 @@ import java.util.List;
 @SpringBootApplication
 public class SsoSameDomainSsoApplication extends WebMvcConfigurerAdapter {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SsoSameDomainSsoApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(SsoSameDomainSsoApplication.class, args);
+	}
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        super.addArgumentResolvers(argumentResolvers);
-        argumentResolvers.add(new CgiHandlerMethodArgumentResolver());
-    }
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		super.addArgumentResolvers(argumentResolvers);
+		argumentResolvers.add(new CgiHandlerMethodArgumentResolver());
+	}
 }

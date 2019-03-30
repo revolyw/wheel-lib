@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class CgiHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    @Override
-    public boolean supportsParameter(MethodParameter methodParameter) {
-        return methodParameter.getParameterType().equals(Cgi.class);
-    }
+	@Override
+	public boolean supportsParameter(MethodParameter methodParameter) {
+		return methodParameter.getParameterType().equals(Cgi.class);
+	}
 
-    @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-        HttpServletRequest req = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        HttpServletResponse rep = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
-        Cgi cgi = new Cgi(req, rep);
-        return cgi;
-    }
+	@Override
+	public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+		HttpServletRequest req = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
+		HttpServletResponse rep = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
+		Cgi cgi = new Cgi(req, rep);
+		return cgi;
+	}
 }

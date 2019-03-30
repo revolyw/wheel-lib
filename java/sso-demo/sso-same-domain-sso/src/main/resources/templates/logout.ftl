@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    成功退出！
+成功退出！
 </body>
 </html>

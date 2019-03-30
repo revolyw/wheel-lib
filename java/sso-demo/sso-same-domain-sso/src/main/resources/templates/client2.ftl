@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    成功进入client2
+成功进入client2
 </body>
 </html>

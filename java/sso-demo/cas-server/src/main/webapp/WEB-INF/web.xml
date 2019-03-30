@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-  <display-name>CAS Server Web Application</display-name>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-      /WEB-INF/dispatcher-servlet.xml,
-      classpath:spring/applicationContext.xml, <!--须配置ContextLoaderListener才能生效-->
-      classpath:spring/dataSource-local.xml,
-      classpath:spring/cipher-dao.xml,
-      classpath:spring/spring-security.xml
-    </param-value>
-  </context-param>
-  <context-param>
-    <param-name>log4jConfigLocation</param-name>
-    <param-value>classpath:log4j.properties</param-value>
-  </context-param>
+    <display-name>CAS Server Web Application</display-name>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/dispatcher-servlet.xml,
+            classpath:spring/applicationContext.xml, <!--须配置ContextLoaderListener才能生效-->
+            classpath:spring/dataSource-local.xml,
+            classpath:spring/cipher-dao.xml,
+            classpath:spring/spring-security.xml
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log4j.properties</param-value>
+    </context-param>
 </web-app>

@@ -16,17 +16,17 @@ import javax.servlet.http.HttpSession;
 @Setter
 @AllArgsConstructor
 public class Cgi {
-    private HttpServletRequest req;
-    private HttpServletResponse rep;
+	private HttpServletRequest req;
+	private HttpServletResponse rep;
 
-    public HttpSession getSession() {
-        return this.req.getSession();
-    }
+	public HttpSession getSession() {
+		return this.req.getSession();
+	}
 
-    public String getString(String key, String defaultValue) {
-        String value = req.getParameter(key);
-        if (StringUtils.isEmpty(value))
-            return defaultValue;
-        return value;
-    }
+	public String getString(String key, String defaultValue) {
+		String value = req.getParameter(key);
+		if (StringUtils.isEmpty(value))
+			return defaultValue;
+		return value;
+	}
 }
