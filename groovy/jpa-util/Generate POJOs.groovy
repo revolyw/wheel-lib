@@ -33,10 +33,7 @@ def generate(out, className, tableName, fields) {
     out.println "package $packageName"
     out.println ""
     out.println "import lombok.Data;"
-    out.println "import javax.persistence.Column;"
-    out.println "import javax.persistence.Entity;"
-    out.println "import javax.persistence.Id;"
-    out.println "import javax.persistence.Table;"
+    out.println "import javax.persistence.*;"
     out.println "import java.util.Date;"
     out.println ""
     out.println ""
@@ -48,7 +45,10 @@ def generate(out, className, tableName, fields) {
     out.println ""
     fields.each() {
         if (it.annos != "") out.println "  ${it.annos}"
-        if ("id" == it.name) out.println "  @Id"
+        if ("id" == it.name) {
+            out.println "  @Id"
+            out.println "  @GeneratedValue(strategy= GenerationType.IDENTITY)"
+        }
         out.println "  @Column(name = \""+ it.column +"\")"
         out.println "  private ${it.type} ${it.name};"
     }
