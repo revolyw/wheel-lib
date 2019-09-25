@@ -1,4 +1,4 @@
-# TESTS for spring TRANSACTION
+# TESTS for Spring Transaction
 
 ## 1. Overview
 

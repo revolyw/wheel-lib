@@ -2,7 +2,6 @@ package cn.yangw.demo.transaction;
 
 import cn.yangw.demo.domain.User;
 import cn.yangw.demo.repository.UserRepository;
-import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,12 @@ public class TransactionService {
 	private UserRepository userRepository;
 
 	/* cases */
+	@Transactional
+	public void transactionAndSub1StatePrivateAndThrowsException(String username1, String username2) {
+		sub1StatePrivate(username1);
+		sub2WithoutTransaction(username2);
+		throw new RuntimeException();
+	}
 
 	@Transactional
 	public void transactionWithoutAnyException(String username1, String username2) {
@@ -74,6 +79,22 @@ public class TransactionService {
 	}
 
 	/* all sub transactions */
+
+	private void sub1StatePrivate(String username) {
+		{
+			Optional<User> userOptional = userRepository.findFirstByOrderByCreateTimeDesc();
+			System.out.println(userOptional.isPresent());
+		}
+		User user = new User();
+		user.setName(username);
+		user.setCreateTime(new Date());
+		user.setModifyTime(user.getCreateTime());
+		userRepository.save(user);
+		{
+			Optional<User> userOptional = userRepository.findFirstByOrderByCreateTimeDesc();
+			System.out.println(userOptional.isPresent());
+		}
+	}
 
 	@Transactional
 	public void sub1WithTransaction(String username) {

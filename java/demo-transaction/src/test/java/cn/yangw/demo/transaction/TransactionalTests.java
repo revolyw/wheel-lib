@@ -32,6 +32,28 @@ public class TransactionalTests {
 	private static final String USERNAME_1 = "yangw1";
 	private static final String USERNAME_2 = "yangw2";
 
+
+	/**
+	 * 入口方法声明事务
+	 * 子方法 1 声明为私有方法
+	 * 子方法 2 声明为共有方法，不显示声明事务
+	 * 执行完子方法 1 和 2 后抛出异常
+	 * <p>
+	 * 预期：子方法均操作失败
+	 * 说明：开启事务，子方法均加入事务，最终均回滚
+	 */
+	@Test
+	public void transactionAndSubStatePrivate() {
+		try {
+			transactionService.transactionAndSub1StatePrivateAndThrowsException(USERNAME_1, USERNAME_2);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+		List<User> byName = userRepository.findByNameIn(Lists.newArrayList(USERNAME_1, USERNAME_2));
+		Assert.assertNotNull(byName);
+		Assert.assertTrue(byName.isEmpty());
+	}
+
 	/**
 	 * 入口方法声明事务
 	 * 子方法皆声明事务
