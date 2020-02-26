@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="./timer.js"></script>
+</head>
+<body>
+	<p id="content"></p>
+	<script type="text/javascript">
+		var timer = new Timer(3600);
+		timer.start(document.getElementById("content"));
+	</script>
+</body>
+</html>
