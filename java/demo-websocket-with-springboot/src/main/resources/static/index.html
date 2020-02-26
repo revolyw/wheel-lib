@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        var stompClient = null;
+
+        function connect() {
+            var roomId = document.getElementById('roomId').value;
+            var socket = new SockJS('http://localhost:8080/demo-websocket-with-springboot');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/' + roomId, function (output) {
+                    chatOutput(JSON.parse(output.body));
+                });
+            });
+        }
+
+        function disconnect() {
+            stompClient.disconnect();
+            setConnected(false);
+            console.log("Disconnected");
+        }
+
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('chatBlock').style.visibility = connected ? 'visible' : 'hidden';
+            document.getElementById('chatResponse').innerHTML = '';
+        }
+
+        function sendMssage() {
+            var user = document.getElementById('user').value;
+            var message = document.getElementById('message').value;
+            stompClient.send("/ws/hello", {}, JSON.stringify({'user': user, 'message': message}));
+            document.getElementById('message').value = "";
+        }
+
+        function chatOutput(json) {
+            var response = document.getElementById('chatResponse');
+            var p = document.createElement('p');
+            p.appendChild(document.createTextNode(json.user + ':' + json.message));
+            response.appendChild(p);
+        }
+    </script>
+</head>
+<body>
+<h1>Chat App</h1>
+<div>
+    <div>
+        <label>roomId: </label><input type="text" id="roomId"/><br/><br/>
+        <button id="connect" onclick="connect();">Connect to Chat Room</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+        <br/><br/>
+    </div>
+    <div id="chatBlock" style="visibility:hidden">
+        <label>User Name: </label><input type="text" id="user"/><br/><br/>
+        <label>Message: </label><textarea id="message"/></textarea><br/><br/>
+        <button id="sendNum" onclick="sendMssage();">Send</button>
+        <p id="chatResponse"></p>
+    </div>
+</div>
+</body>
+</html>
