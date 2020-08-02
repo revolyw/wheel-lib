@@ -37,10 +37,11 @@
             document.getElementById('chatResponse').innerHTML = '';
         }
 
-        function sendMssage() {
+        function sendMessage() {
+            var roomId = document.getElementById('roomId').value;
             var user = document.getElementById('user').value;
             var message = document.getElementById('message').value;
-            stompClient.send("/ws/hello", {}, JSON.stringify({'user': user, 'message': message}));
+            stompClient.send("/ws/hello", {}, JSON.stringify({'roomId':roomId, 'user': user, 'message': message}));
             document.getElementById('message').value = "";
         }
 
@@ -56,15 +57,15 @@
 <h1>Chat App</h1>
 <div>
     <div>
-        <label>roomId: </label><input type="text" id="roomId"/><br/><br/>
+        <label>roomId: </label><label for="roomId"></label><input type="text" id="roomId"/><br/><br/>
         <button id="connect" onclick="connect();">Connect to Chat Room</button>
         <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
         <br/><br/>
     </div>
     <div id="chatBlock" style="visibility:hidden">
-        <label>User Name: </label><input type="text" id="user"/><br/><br/>
-        <label>Message: </label><textarea id="message"/></textarea><br/><br/>
-        <button id="sendNum" onclick="sendMssage();">Send</button>
+        <label>User Name: </label><label for="user"></label><input type="text" id="user"/><br/><br/>
+        <label>Message: </label><textarea id="message"></textarea><br/><br/>
+        <button id="sendNum" onclick="sendMessage();">Send</button>
         <p id="chatResponse"></p>
     </div>
 </div>

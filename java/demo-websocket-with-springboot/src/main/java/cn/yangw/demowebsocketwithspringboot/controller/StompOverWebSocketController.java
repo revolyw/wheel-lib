@@ -2,13 +2,9 @@ package cn.yangw.demowebsocketwithspringboot.controller;
 
 import cn.yangw.demowebsocketwithspringboot.Greeting;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-
-import javax.websocket.server.PathParam;
-import java.security.Principal;
 
 /**
  * websocket 接口
@@ -30,7 +26,7 @@ public class StompOverWebSocketController {
 	 */
 	@MessageMapping("/hello")
 	public void getAndSend(SimpMessageHeaderAccessor headerAccessor, Greeting greeting) throws Exception {
-		simpMessagingTemplate.convertAndSend("/topic/123", greeting);
+		simpMessagingTemplate.convertAndSend("/topic/" + greeting.getRoomId(), greeting);
 	}
 
 

@@ -14,6 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class Greeting implements Serializable {
+	String roomId;
 	String user;
 	String message;
 }

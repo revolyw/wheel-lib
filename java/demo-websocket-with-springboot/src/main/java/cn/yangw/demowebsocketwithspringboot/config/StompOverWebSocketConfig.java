@@ -9,12 +9,11 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.messaging.support.MessageHeaderAccessor;
-import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-
-import java.util.Map;
+import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 /**
  * 消息代理
@@ -24,13 +23,41 @@ import java.util.Map;
  */
 @Configuration
 @EnableWebSocketMessageBroker
-public class StompOverWebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+public class StompOverWebSocketConfig implements WebSocketMessageBrokerConfigurer {
+	private final WebSocketDecoratorFactory webSocketDecoratorFactory;
+
+	public StompOverWebSocketConfig(WebSocketDecoratorFactory webSocketDecoratorFactory) {
+		this.webSocketDecoratorFactory = webSocketDecoratorFactory;
+	}
+
+	/**
+	 * 消息传输参数配置
+	 *
+	 * @param registration
+	 */
+	@Override
+	public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+		/**
+		 * setSendTimeLimit 超时时间 单位毫秒 默认值 10 * 1000 = 10s
+		 * setSendBufferSizeLimit 缓存空间 单位字节 默认值 512 * 1024 = 512K
+		 * setMessageSizeLimit 消息大小 单位字节 默认值 64 * 1024 = 64K
+		 */
+		registration.setSendTimeLimit(10 * 1000)
+				.setSendBufferSizeLimit(512 * 1024)
+				.setMessageSizeLimit(64 * 1024)
+				.addDecoratorFactory(webSocketDecoratorFactory);
+	}
+
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		//消息上行前缀
 		registry.setApplicationDestinationPrefixes("/ws");
 		//消息下行前缀
-		registry.enableSimpleBroker("/topic");
+		registry.enableStompBrokerRelay("/topic")
+				.setRelayHost("rabbitmq.willowspace.cn")
+				.setRelayPort(61613);
+//				.setClientLogin("admin")
+//				.setClientPasscode("admin");
 	}
 
 	@Override
@@ -44,7 +71,6 @@ public class StompOverWebSocketConfig extends AbstractWebSocketMessageBrokerConf
 	 */
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
-		super.configureClientInboundChannel(registration);
 		registration.interceptors(new ChannelInterceptorAdapter() {
 			@Override
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
