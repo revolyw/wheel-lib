@@ -2,14 +2,21 @@ package cn.willow.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class GoController {
+public class GoController implements EnvironmentAware {
     private final Log logger = LogFactory.getLog(GoController.class);
+    /**
+     * 包含 servletConfig、servletContext 以及 SystemEnvironment
+     *
+     */
+    private Environment environment;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.HEAD)
     public String head() {
@@ -31,5 +38,10 @@ public class GoController {
         logger.info("processed by index");
         model.addAttribute("msg", "GO GO GO!");
         return "go.jsp";
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }

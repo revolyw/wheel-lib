@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+spring 的 xml 配置文件使用多命名空间配置的具体内容是如何解析的呢？
+把解析标签的类放在了相应的 META-INF 目录下的 spring.handlers 文件中，然后从那里面找
+比如，mvc 命名空间的解析设置在 spring-webmvc-4.1.5-RELEASE.jar 包下 META-INF/spring.handlers 文件中
+其内容为：http://www.springframework.org/schema/mvc=org.springframework.web.servlet.config.MvcNamespaceHandler
+而 MvcNamespaceHandler 这个类内部将 mvc:annotation-driven 的解析交给了 AnnotationDrivenBeanDefinitionParser
+解析配置的接口是 org.springframework.beans.factory.xml.NamespaceHandler。主要定义了三个方法，分别是：
+init 用来初始化自己
+parse 用于将配置的 xml 标签转化为 Spring 需要的 BeanDefinition
+decorate 是装饰的意思,decorate 方法的作用是对所在的 BeanDefinition 进行一些修改，用得较少
+NamespaceHandler 的实现类主要有三个：NamespaceHandlerSupport(默认实现)、SimpleConstructorNamespaceHandler、SimplePropertyNamespaceHandler
+NamespaceHandlerSupport 定义了三个处理器：parsers、decorates、attributeDecorators 分别用于处理解析工作、处理标签类型以及属性类型的装饰
+以 mvc 为例，mvc 命令空间的解析是通过实现了 MvcNamespaceHandler，它继承自 NamespaceHandlerSupport，实现了 NamespaceHandler 接口
+其中定义的 parsers 中就有实现解析 mvc:annotation-driven 的解析器 AnnotationDrivenBeanDefinition
+-->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
