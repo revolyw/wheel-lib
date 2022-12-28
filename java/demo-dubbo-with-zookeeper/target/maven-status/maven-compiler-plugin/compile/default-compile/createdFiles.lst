@@ -1,0 +1,7 @@
+org/apache/dubbo/samples/ProviderBootstrap.class
+org/apache/dubbo/samples/ProviderBootstrap$ProviderConfiguration.class
+org/apache/dubbo/samples/action/GreetingServiceConsumer.class
+org/apache/dubbo/samples/ConsumerBootstrap.class
+org/apache/dubbo/samples/ConsumerBootstrap$ConsumerConfiguration.class
+org/apache/dubbo/samples/api/GreetingService.class
+org/apache/dubbo/samples/impl/AnnotatedGreetingService.class
