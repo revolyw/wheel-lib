@@ -3,6 +3,8 @@ package com.example.demo.thread.pool;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * 用于收集打印线程池运行过程中的状态，但是由于线程池本身暴露的信息是动态的，所以打印出来的信息只是当时的一个近似信息，仅供参考
+ * 
  * @author willow
  * @date 2022/12/29
  */
