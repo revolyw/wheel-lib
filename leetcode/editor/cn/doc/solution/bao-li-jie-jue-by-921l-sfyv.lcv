@@ -1,0 +1,41 @@
+> Problem: [3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/)
+
+[TOC]
+
+# 解题方法
+
+> i作为基点，occ作为判断条件（桶），如果判断s[j]已经在桶里则退出，重新判断下一组字符是否符合要求。
+
+# Code
+
+* []
+
+```C++
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n=s.size();
+        int num=1,max=0;
+        for(int i=0;i<n;++i){
+            int j=i+1;
+            int occ[256]={0};
+            occ[int(s[i])]++;
+            while(j<n){
+                if(occ[int(s[j])]!=0){
+                    break;
+                }
+                num++;
+                occ[int(s[j])]++;
+                j++;
+            }
+            if(num>max) {
+                max=num;
+            }
+            num=1;
+        }
+        return max;
+    }
+};
+```
+
