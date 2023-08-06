@@ -1,0 +1,21 @@
+> Problem: [4. 寻找两个正序数组的中位数](https://leetcode.cn/problems/median-of-two-sorted-arrays/description/)
+
+[TOC]
+
+# 思路
+
+> 你出困难题我用numpy，不过分吧？？？？
+
+# Code
+
+* []
+
+```Python
+
+import numpy as np
+
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        return np.median(nums1+nums2)
+```
+
