@@ -50,7 +50,7 @@ public class _4寻找两个正序数组的中位数 {
     class Solution {
         /**
          * 本题需要掌握的核心技能是二分查找。需要了解的知识是中位数的定义。
-         * 中位数的定义：当数组大小 n 是奇数时，中位数是两个有序数组中的第 n/2 个元素。
+         * 中位数的定义：
          *      当 n 是偶数时，中位数是两个有序数组中的第 n/2 个元素和第 n/2 + 1 个元素的平均值。
          *      当 n 是奇数时，中位数是第 (n+1)/2 个元素的值。
          * 二分查找：每次计算都要将问题域缩小固定倍数，适用于有序集合中查找特定元素。
@@ -162,7 +162,6 @@ public class _4寻找两个正序数组的中位数 {
                 int newIndex1 = Math.min(index1 + k/2, n1) - 1;
                 int newIndex2 = Math.min(index2 + k/2, n2) - 1;
                 if (nums1[newIndex1] > nums2[newIndex2]) {
-                    //数据2排除元素
                     offset = newIndex2 - index2 + 1;
                     index2 = index2 + offset;
                 } else {
