@@ -1,5 +1,6 @@
 # Spring MVC 源码解析
 本工程首先是一个使用 Spring MVC 搭建的 web 工程
+
 通过对工程中不同组件的深入，以求对 Spring MVC 源码原理有一个全面的解析
 
 ## spring mvc 的本质是一个 servlet 的扩展框架
@@ -10,7 +11,26 @@ servlet 3.1 通过 web.xml 配置的 spring-mvc 参考 /web/WEB-INF/web.xml
 
 ## spring mvc 本身的创建过程
 三个层次 HttpServletBean、FrameworkServlet、DispatcherServlet
+
 HttpServletBean 直接继承自 HttpServlet，作用是将 Servlet 中配置的参数设置到相应的属性
+
 FrameworkServlet 初始化了 WebApplicationContext。初始化有三种方式，过程中使用了 Servlet 中配置的一些参数
+
 DispatcherServlet 初始化了自身的 9 个组件
+
 特点：顶层结构设计简单，实现细节复杂（功能多、配置灵活）。
+
+## spring mvc 如何处理请求
+### HttpServletBean、FrameworkServlet、DispatcherServlet
+HttpServletBean 不参与处理请求
+
+FrameworkServlet 重写了 service、doGet、doPost、doPut、doDelete、doOptions、doTrace
+
+通过 dispatchOptionsRequest 和 dispatchTraceRequest 参数决定是自己还是父类处理
+
+所有需要自己处理的请求都交给了 __processRequest__
+
+不同类型的请求通过不同的 Handler 进行处理
+
+
+
