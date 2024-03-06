@@ -9,15 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * hystrix command 示例
  * @author willow
  * @date 2024/3/6
  */
 @RestController
 public class HystrixController {
-    /**
-     *
-     * @return
-     */
     @HystrixCommand(groupKey = "hystrix", //一组 Hystrix 命令的集合， 用来统计、报告，默认取类名，可不配置。
             commandKey = "test", //用来标识一个 Hystrix 命令，默认会取被注解的方法名
             fallbackMethod = "fallback", //方法执行时熔断、错误、超时时会执行的降级方法，需要保持此方法与 Hystrix 方法的签名和返回值一致。
