@@ -1,0 +1,12 @@
+ARG BASE_IMAGE=stage_first:v1
+
+FROM ${BASE_IMAGE} as first
+
+FROM ubuntu:18.04 as base
+# 设置维护者信息
+LABEL maintainer="yangw <yangw@dxy.cn>"
+
+COPY --from=0 /root/skywalking-agent/file /root/
+
+# CMD 指定一个长时间运行的命令
+CMD ["tail", "-f", "/dev/null"]
