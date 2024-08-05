@@ -1,4 +1,4 @@
-package cn.willow.demo.demoutils;
+package cn.willow.demo.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,7 +17,9 @@ import java.util.List;
  * @see <a href=https://ffmpeg.org//documentation.html></a>
  */
 public class FfmpegUtil {
-    // FFmpeg的安装路径，或者如果FFmpeg在系统PATH变量中，可以直接使用"ffmpeg"
+    /**
+     * FFmpeg的安装路径，或者如果FFmpeg在系统PATH变量中，可以直接使用"ffmpeg"
+     */
     private static final String FFMPEG_PATH = "/Users/willow/software/ffmpeg";
 
     /**
@@ -30,7 +33,7 @@ public class FfmpegUtil {
      * @param startSecond 裁剪起始秒
      * @param durationSeconds 裁剪秒数
      */
-    public void compressVideo(String inputPath, String outputPath, int bitrate, int width, int height,
+    public static void compressVideo(String inputPath, String outputPath, int bitrate, int width, int height,
                               double startSecond, int durationSeconds) {
         List<String> command = new ArrayList<>();
         command.add(FFMPEG_PATH);
@@ -74,6 +77,42 @@ public class FfmpegUtil {
         }
     }
 
+    /**
+     * 压缩视频
+     *
+     * @param params ffmpeg 参数
+     */
+    public static void compressVideo(String params) {
+        List<String> command = new ArrayList<>();
+        String[] paramArray = params.split(" ");
+        command.add(FFMPEG_PATH);
+        command.addAll(Arrays.asList(paramArray));
+
+        Process process = null;
+        try {
+            process = new ProcessBuilder(command)
+                    .redirectErrorStream(true) // 将错误流重定向到标准输出流
+                    .start();
+
+            System.out.println("start ffmpeg process..." + LocalTime.now());
+            printProcessOutput(process.getInputStream());
+            // 等待进程执行完成
+            process.waitFor();
+            // 检查进程是否成功完成
+            if (process.exitValue() == 0) {
+                System.out.println("ffmpeg process completed" + LocalTime.now());
+                return;
+            }
+            System.out.println("ffmpeg process interrupted");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != process) {
+                process.destroy();
+            }
+        }
+    }
+
     // 辅助方法，用于获取进程输出
     private static void printProcessOutput(InputStream inputStream) {
         // 创建并启动一个新线程来读取和打印FFmpeg的输出
@@ -92,7 +131,21 @@ public class FfmpegUtil {
 
     // 调用示例
     public static void main(String[] args) {
-        FfmpegUtil compressor = new FfmpegUtil();
+//        ffmpegBySpecificParams();
+        ffmpegByParams();
+    }
+
+    private static void ffmpegByParams() {
+        // 本地视频位置/远端视频 URL
+        String remoteVideoUrl = "/Users/willow/Downloads/4K60FPS视频/45s350M.MOV";
+        // 压缩后视频保存的路径
+        String compressedVideoPath = "/Users/willow/Downloads/ffmpeg_compressed_video.mp4";
+        String params =  "-i " + remoteVideoUrl + " -ss 5.00 -t 30 -b:v 2000k -s 720x1080 -strict 2 -y " + compressedVideoPath;
+        // 压缩视频
+        FfmpegUtil.compressVideo(params);
+    }
+
+    private static void ffmpegBySpecificParams() {
         // 本地视频位置/远端视频 URL
         String remoteVideoUrl = "/Users/willow/Downloads/4K60FPS视频/45s350M.MOV";
         // 压缩后视频保存的路径
@@ -105,6 +158,6 @@ public class FfmpegUtil {
         int durationSeconds = 30;
 
         // 压缩视频
-        compressor.compressVideo(remoteVideoUrl, compressedVideoPath, targetBitrate, width, height, startSecond, durationSeconds);
+        FfmpegUtil.compressVideo(remoteVideoUrl, compressedVideoPath, targetBitrate, width, height, startSecond, durationSeconds);
     }
 }
