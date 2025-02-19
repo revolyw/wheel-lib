@@ -1,0 +1,184 @@
+<html>
+    <head>
+        <title>AI 流式聊天</title>
+    </head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        #messageArea {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        #messageInput {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        #sendButton {
+            width: 100px;
+            height: 30px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        #message {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        /* 修改样式，消息输入框支持多行输入和展示，并且在布局上消息输入框在左边，消息发送按钮在右边 */
+        #messageArea {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 100px); /* 减去输入框和按钮的高度 */
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        #messageInput {
+            flex: 1;
+        }
+        #sendButton {
+            flex: 1;
+        }
+        #message {
+            flex: 1;
+        }
+    </style>
+    <body>
+        <div style="display: flex; gap: 10px; margin: 10px 0;">
+            <textarea id="message" placeholder="请输入消息" style="flex: 1; min-height: 60px; resize: vertical; padding: 8px;">你是谁？</textarea>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <button id="send" style="width: 80px;">发送</button>
+                <button id="stop" style="width: 80px;">停止</button>
+            </div>
+        </div>
+        <div id="messageArea"></div>
+        <script>
+            const sendButton = document.getElementById('send');
+            const stopButton = document.getElementById('stop');
+            const messageInput = document.getElementById('message');
+            const messageArea = document.getElementById('messageArea');
+            let controller = null;
+            let reader = null;
+
+            async function fetchStream(message) {
+                try {
+                    // 取消之前的请求
+                    if (controller) {
+                        controller.abort();
+                    }
+
+                    controller = new AbortController();
+                    const response = await fetch(`http://localhost:8080/ai/generateStream?message=${encodeURIComponent(message)}`, {
+                        signal: controller.signal,
+                        headers: {
+                            'Accept': 'text/event-stream',  // 使用 SSE 流式传输
+                            'Cache-Control': 'no-cache',
+                            'Connection': 'keep-alive'
+                        }
+                    });
+
+                    // 创建响应流读取器
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    
+                    // 创建AI回复的段落元素
+                    const aiMessage = document.createElement('p');
+                    aiMessage.textContent = 'AI: ';
+                    messageArea.appendChild(aiMessage);
+                    
+                    // 逐块读取流式响应
+                    while (true) {
+                        const {value, done} = await reader.read();
+                        if (done) break;
+                        
+                        // 解码二进制数据
+                        const text = decoder.decode(value, {stream: true});
+
+                        // 如果解析出的text不是有效的JSON,跳过并等待一个渲染窗口
+                        try {
+                            JSON.parse(text);
+                        } catch (e) {
+                            await new Promise(resolve => setTimeout(resolve, 17));
+                            continue;
+                        }
+                        
+                        try {
+                            // 解析JSON数据
+                            const data = JSON.parse(text);
+                            if (data?.result?.output?.text) {
+                                // 将新文本追加到AI回复中
+                                const formattedText = data.result.output.text.replace(/\n/g, '<br>');
+                                aiMessage.innerHTML += formattedText;
+                                // 自动滚动到底部
+                                messageArea.scrollTop = messageArea.scrollHeight;
+                            }
+                        } catch (e) {
+                            console.warn('解析响应数据出错:', e);
+                            console.log(value);
+                        } finally {
+                            // 等待一个渲染窗口(17ms)后再继续
+                            await new Promise(resolve => setTimeout(resolve, 17));
+                        }
+                    }
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        console.log('请求已取消');
+                    } else {
+                        console.error('发生错误:', error);
+                        // 显示错误信息
+                        const errorMessage = document.createElement('p');
+                        errorMessage.style.color = 'red';
+                        errorMessage.textContent = `错误: ${error.message}`;
+                        messageArea.appendChild(errorMessage);
+                    }
+                } finally {
+                    // 恢复输入控件状态
+                    messageInput.disabled = false;
+                    sendButton.disabled = false;
+                    controller = null;
+                }
+            }
+
+            // 监听停止按钮点击事件
+            stopButton.addEventListener('click', () => {
+                if (controller) {
+                    controller.abort();
+                }
+            });
+
+            // 监听发送按钮点击事件
+            sendButton.addEventListener('click', () => {
+                const message = messageInput.value;
+                if (message) {
+                    // 添加用户消息
+                    const userMessage = document.createElement('p');
+                    userMessage.textContent = `用户: ${message}`;
+                    userMessage.style.backgroundColor = '#e3f2fd';  // 使用不同的背景色区分用户消息
+                    messageArea.appendChild(userMessage);
+                    messageArea.scrollTop = messageArea.scrollHeight;
+                    
+                    messageInput.value = '';
+                    messageInput.disabled = true;
+                    sendButton.disabled = true;
+                    fetchStream(message);
+                }
+            });
+
+            // 监听回车键
+            messageInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    sendButton.click();
+                }
+            });
+        </script>   
+    </body>
+</html>
