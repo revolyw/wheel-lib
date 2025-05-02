@@ -1,0 +1,9 @@
+langchain4j:
+  ollama:
+    chat-model:
+      base-url: http://localhost:11434
+      model-name: llama3.2
+      log-requests: true
+      log-responses: true
+server:
+  port: 8888

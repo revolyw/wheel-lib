@@ -1,0 +1,26 @@
+
+spring:
+  application:
+    name: demo-mcp-client
+# https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html
+# https://brave.com/search/api/
+  main:
+    web-application-type: none
+    banner-mode: off
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: llama3.2
+        options:
+          temperature: 0.7
+    mcp:
+      client:
+        enabled: true
+        name: brave-search-client
+        version: 1.0.0
+        type: SYNC # or ASYNC for reactive applications
+        request-timeout: 20s
+        stdio:
+          root-change-notification: true
+          servers-configuration: classpath:mcp-servers-config.json
