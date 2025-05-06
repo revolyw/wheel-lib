@@ -55,6 +55,7 @@ public class _5最长回文子串 {
          * @return 最长回文子串
          */
         public String longestPalindrome(String s) {
+            //
             char[] charArray = s.toCharArray();
             // 1 个字符一定是回文子串
             if (charArray.length <= 1) {
