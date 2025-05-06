@@ -1,4 +1,4 @@
-package cn.willow.demo.base.list;
+package cn.willow.demo.algorithm;
 
 /**
  * 带头指针的单链表原地逆序(逆序函数为reverse)
