@@ -65,7 +65,7 @@ public class AgentClass {
 
     /**
      * This method is used to transform the class
-     *
+     *a
      * @param clazz           The class to transform
      * @param classLoader     The classloader of the class
      * @param instrumentation The instrumentation instance

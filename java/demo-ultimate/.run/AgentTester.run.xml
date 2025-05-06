@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="AgentTester" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="AgentTester" type="cn.willow.demo.Application" factoryName="cn.willow.demo.Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="cn.willow.demo.javaagent.tester.AgentTester" />
     <module name="demo-java-agent-tester" />
     <option name="VM_PARAMETERS" value="-javaagent:$PROJECT_DIR$/demo-java-agent/target/demo-java-agent-1.0.jar" />

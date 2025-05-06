@@ -1,5 +1,7 @@
 package cn.willow.demo.utils;
 
+import org.springframework.util.ReflectionUtils;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -66,10 +68,10 @@ public class TimeUtil {
 //        }
         //时间计算
         {
-            String dateString = "2024-06-27 23:00:00";
+            String dateString = "2024-01-24 00:00:00";
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime localDateTime = LocalDateTime.parse(dateString, dateTimeFormatter);
-            System.out.println(localDateTime.plusMinutes(-10));
+            System.out.println(localDateTime.plusDays(-365));
 
             Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
             Date tenMinutesAgo = addMinutes(date, -10);
