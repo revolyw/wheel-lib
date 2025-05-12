@@ -1,14 +1,22 @@
 package cn.willow.demo.pattern;
 
+import java.io.Serializable;
+
 /**
+ * 双重检查锁定（Double-Checked Locking）优化性能
  * @author willow
  * @since 2024/12/11
  */
 public class SingletonDCLDemo {
-    public static class Singleton {
+    public static class Singleton implements Serializable {
         private static volatile Singleton instance;
 
-        private Singleton() {}
+        private Singleton() {
+            //防止反射攻击
+            if(null == instance){
+                throw new IllegalStateException("singleton instance already exists");
+            }
+        }
 
         public static Singleton getInstance() {
             if (instance == null) { // 第一次检查。如果实例化过后续访问避免加锁提升开销
@@ -18,6 +26,11 @@ public class SingletonDCLDemo {
                     }
                 }
             }
+            return instance;
+        }
+
+        //防止反序列化创建新的实例
+        private Object readResolve() {
             return instance;
         }
     }
