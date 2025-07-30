@@ -3,7 +3,7 @@
  * Copyright (c) 2017-2025 All Rights Reserved.
  */
 package
-        cn.willow.demo;
+        cn.willow.demo.ioc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

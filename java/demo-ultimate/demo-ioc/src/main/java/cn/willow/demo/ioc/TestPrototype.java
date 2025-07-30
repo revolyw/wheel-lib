@@ -3,10 +3,9 @@
  * Copyright (c) 2017-2025 All Rights Reserved.
  */
 package
-        cn.willow.demo;
+        cn.willow.demo.ioc;
 
 import lombok.Getter;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
