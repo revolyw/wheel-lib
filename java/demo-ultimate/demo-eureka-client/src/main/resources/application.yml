@@ -1,0 +1,7 @@
+
+eureka:
+  client:
+    availability-zones:
+      default-zone: http://localhost:1111/eureka/
+  instance:
+    appname: eureka-client
