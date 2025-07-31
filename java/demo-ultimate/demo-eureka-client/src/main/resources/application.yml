@@ -1,7 +1,10 @@
-
 eureka:
   client:
     availability-zones:
       default-zone: http://localhost:1111/eureka/
+    healthcheck:
+      enabled: true # 健康检查，依赖 actuator
   instance:
     appname: eureka-client
+    lease-renewal-interval-in-seconds: 10 # 续约更新时间间隔
+    lease-expiration-duration-in-seconds: 20 # 续约到期时间
