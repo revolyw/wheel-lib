@@ -11,6 +11,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author willow
  * Created by on 2025-07-31 14:09
  */
-@FeignClient(name = "${store.provider.name}")
+@FeignClient(name = "${provider.name}")
 public interface StoreFeignClient extends StoreFacade {
 }

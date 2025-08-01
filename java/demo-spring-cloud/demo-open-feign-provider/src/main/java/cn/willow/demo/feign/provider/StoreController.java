@@ -5,6 +5,7 @@
 package cn.willow.demo.feign.provider;
 
 import cn.willow.demo.feign.client.facade.StoreFacade;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,5 +18,10 @@ public class StoreController implements StoreFacade {
     @Override
     public String getStore() {
         return "hello world!";
+    }
+
+    @RequestMapping(value = "/")
+    public String healthcheck() {
+        return "ok";
     }
 }

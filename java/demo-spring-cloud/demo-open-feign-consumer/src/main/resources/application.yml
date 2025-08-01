@@ -1,15 +1,15 @@
 server:
   port: 8080
+
 feign:
   client:
     config:
-      feignName:
+      demo-open-feign-provider:
         connectTimeout: 5000
         read-timeout: 5000
-        logger-level: full
-store:
-  provider:
-    name: demo-open-feign-provider
+
+provider:
+  name: demo-open-feign-provider
 
 spring:
   application:
