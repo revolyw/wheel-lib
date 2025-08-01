@@ -1,3 +1,4 @@
+*.class
 *mvnw
 *mvnw.cmd
 *.mvn
