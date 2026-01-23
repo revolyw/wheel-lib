@@ -1,3 +1,5 @@
+package cn.willow.demo.utils;
+
 /**
  * 字符串工具类
  * Created by Willow on 16/11/3.
@@ -103,4 +105,17 @@ public class StringUtil {
 		}
 		return substring.toString().trim();
 	}
+
+    private static boolean isEnglishWord(String stringUnit) {
+
+        if (stringUnit == null || stringUnit.isEmpty()) {
+            return false;
+        }
+        for (char c : stringUnit.toCharArray()) {
+            if (!Character.isLetter(c) || Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
