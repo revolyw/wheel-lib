@@ -1,0 +1,13 @@
+{
+  "case-dev": "https://skdev-boss.aistarfish.net/lion/#/basicdata/user-management",
+  "case-prod": "https://dtx.suifang.acits.com.cn/case-management/#/login",
+  "lion-dev": "https://skdev-boss.aistarfish.net/lion/#/basicdata/user-management",
+  "lion-prod": "https://boss.suifang.acits.com.cn/lion/#/basicdata/user-management",
+  "patient-education-dev": "https://skdev-boss.aistarfish.net/patient-education",
+  "patient-education-prod": "https://boss.suifang.acits.com.cn/patient-education/#/",
+  "metis-dev": "https://skdev-boss.aistarfish.net/metis",
+  "metis-prod": "https://boss.suifang.acits.com.cn/metis/#/",
+  "bi-dev": "https://skdev-bi.aistarfish.net/",
+  "bi-prod": "https://bi.suifang.acits.com.cn/",
+  "kuboard": "http://kuboard.coc.aistarfish.net/" 
+}
