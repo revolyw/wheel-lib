@@ -1,3 +1,5 @@
+target
+.claude
 *.class
 *mvnw
 *mvnw.cmd
@@ -7,7 +9,7 @@
 out
 /out/*
 .DS_Store
-**/target/classes/*
+**/target
 # spring/spring-boot-rmi
 spring/spring-boot-rmi/.idea/
 spring/spring-boot-rmi/build/
